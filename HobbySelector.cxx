@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+//#include <iterator>
 
 class hobby{
 public:
@@ -20,6 +21,7 @@ std::cout<<"Enter Name of hobbies"<<"\n";
 	{
 	std::cin>>Inserter;
 	Hobbies.push_back(Inserter);
+	//std::cout<<"Val added";
 	}
 return i;
 }
@@ -28,30 +30,37 @@ return i;
 
 void filesave()
 {
-int range=1;	
+int range=0;	
 int is=input();
-int stuff=Hobbies.size()-1;
+int i=is;
 
-std::fstream Fileboi("/home/chirag/Code/Personal/HobbySelector/HobbiesTest");
+//auto check =Hobbies.end();
+
+std::fstream Fileboi("/home/chirag/Code/Personal/HobbySelector/HobbiesTest", std::ios::in | std::ios::out);
 Fileboi.open("/home/chirag/Code/Personal/HobbySelector/HobbiesTest");
+if(Fileboi.is_open())
+std::cout<<"1";
 
 
 //everything above this works 
 
 //this loop has to add the contents of the vector into the file but its being a bitch 
-for(int i=is;range<=i;range++)
+for(i=is;range<i;range++)
 {
-Fileboi<<Hobbies[stuff];				
-stuff++;
+if (Fileboi.is_open()) 
+{	
+for (const auto& hob : Hobbies) 
+{
+Fileboi<<hob<<"\n";
+}
+//serialize the vector so it can be printed to the file
 }
 //this loop is a bitch 
-Fileboi.close();
 }
-
+Fileboi.close();
+//std::cout<<"Val added";
+}
 };
-
-
-
 
 int main()
 {
