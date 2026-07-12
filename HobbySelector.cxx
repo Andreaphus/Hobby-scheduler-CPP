@@ -36,8 +36,7 @@ int i=is;
 
 //auto check =Hobbies.end();
 
-std::fstream Fileboi("/home/chirag/Code/Personal/HobbySelector/HobbiesTest", std::ios::in | std::ios::out);
-Fileboi.open("/home/chirag/Code/Personal/HobbySelector/HobbiesTest");
+std::fstream Fileboi("HobbiesTest", std::ios::in | std::ios::out | std::ios::trunc);
 if(Fileboi.is_open())
 std::cout<<"1";
 
@@ -46,17 +45,15 @@ std::cout<<"1";
 
 //this loop has to add the contents of the vector into the file but its being a bitch 
 for(i=is;range<i;range++)
-{
+		{
 if (Fileboi.is_open()) 
-{	
+	{
 for (const auto& hob : Hobbies) 
 {
-Fileboi<<hob<<"\n";
+Fileboi<<hob<<"\n";   //check if the file writes anything regardless of the vector based loop
 }
-//serialize the vector so it can be printed to the file
-}
-//this loop is a bitch 
-}
+	}
+		}
 Fileboi.close();
 //std::cout<<"Val added";
 }
