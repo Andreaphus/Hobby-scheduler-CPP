@@ -146,7 +146,7 @@ OpenFile();
 
 for(i=0;i<=range;i++)
 {
-Fileboi>>hob>>hours;
+Fileboi>>hon>>hours;
 if(hon==hob)
 break;
 }
@@ -216,7 +216,6 @@ int main()
 {
 	hobby h;
 	h.UI();
-	//h.Suggest();
 	return 0;
 }
 
