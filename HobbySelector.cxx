@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <algorithm>
 
 
 class hobby{
@@ -20,7 +21,7 @@ void UI(){
 int opt,chance=0;
 while(chance==0)
 {
-std::cout<<"Please select your need:-\n1.See current data\n2.Get suggestion for what to do\n3.Add hours to a hobby\n4.Add Hobbies\n5.Clear Screen\n6.Exit\n";
+std::cout<<"Please select your need:-\n1.See current data\n2.Get suggestion for what to do\n3.Add hours to a hobby\n4.Add Hobbies\n5.Clear Screen\n6.Exit\nYour choice:-";
 std::cin>>opt;
 switch(opt){
 case 1:
@@ -28,7 +29,7 @@ fileDisplay();
 break;
 
 case 2:
-//todo	
+Suggest();	
 break;
 
 case 3:
@@ -46,6 +47,10 @@ break;
 case 6:
 chance=1;
 break;
+
+default:
+std::cout<<"Please enter a value given in the menu\n";
+break;
 }
 }		
 }
@@ -59,7 +64,7 @@ std::string Inserter;
 
 std::cout<<"Enter number of hobbies to add!"<<"\n";
 std::cin>>i;
-std::cout<<"Enter Name of hobbies and number of hours spent on it"<<"\n";
+std::cout<<"Enter Name of hobbies and number of minutes spent on it"<<"\n";
 	for(range=1;range<=i+1;range++)
 	{
 	  std::getline(std::cin, Inserter);
@@ -83,16 +88,32 @@ Fileboi.close();  //closes the opened file, techincally not needed by still
 
 }
 
+
+
 void fileDisplay() //read data from file when need to be printed
 {
 OpenFile();
 std::string line;
-while(getline(Fileboi,line))
+int hour=0,min;
+
+while(Fileboi>>line>>min)
 {
-std::cout<<line<<"\n";	
+while(min>=60)		
+{
+if(min>=60){	
+min=min-60;
+hour++;
+}
+}
+
+std::cout<<line<<" "<<hour<<" Hours and"<<" "<<min<<" Minutes"<<"\n";
+hour=0;
+min=0;
 }
 Fileboi.close();
 }
+
+
 
 int GetSize()  //get lines of the file
 {
@@ -138,8 +159,8 @@ int AddHours() //Get values from existing data in the file and then add the hour
 {
 int ExHours,NewHours;
 int hours=GetHours();
-std::cout<<"Current hours:-"<<hours<<std::endl;
-std::cout<<"Enter hours you want to add:-";
+std::cout<<"Current Minutes:-"<<hours<<std::endl;
+std::cout<<"Enter Minutes you want to add:-";
 std::cin>>ExHours;
 NewHours=ExHours+hours;
 return NewHours;
@@ -164,12 +185,38 @@ ReFileBoi<<hob<<" "<<hou<<std::endl;
 }
 }
 
+void Suggest() //this function checks for the amount of time spent and then gives a suggestion of the hobby to do
+{
+std::string line;
+int hour;
+std::vector<int>AllHours;
+OpenFile();
+
+while(Fileboi>>line>>hour)
+{
+AllHours.push_back(hour);	
+}
+Fileboi.close();
+int min =*min_element(AllHours.begin(), AllHours.end());  //this uses the algorithm lib to get the minimum value of the vector, the begin() and end() and the range
+OpenFile();
+while(Fileboi>>line>>hour)
+{
+if(min==hour)
+{
+break;	
+	}	
+}
+
+std::cout<<"The Hobby "<<line<<" is reccomeneded to you due to the fact that you have practiced it the least\n";
+Fileboi.close();
+}
 };
 
 int main()
 {
 	hobby h;
 	h.UI();
+	//h.Suggest();
 	return 0;
 }
 
@@ -177,7 +224,7 @@ int main()
 
 
 //todo:-
-//Make the suggestion algoritham
-//check the UI functions for all major things i want
-//Make a feature to update hours instead of just having add hours
+//Make a feature to update minutes instead of just having add minutes
 //Make a feature to update the hobby name
+//Make Multiple forms of reccomendation(if some hobyy is done multiple times back to back then the system will suggest to take a break and so on )
+//when the function getHob() is ran, the user is asked for input, find a way so that only happens once per instance of the program/requirement instead of everytime the function runs
