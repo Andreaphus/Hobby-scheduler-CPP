@@ -183,6 +183,7 @@ if(hoby==hob)
 hou=Hours;	
 ReFileBoi<<hob<<" "<<hou<<std::endl;	
 }
+ReFileBoi.close();
 }
 
 void Suggest() //this function checks for the amount of time spent and then gives a suggestion of the hobby to do
@@ -227,3 +228,6 @@ int main()
 //Make a feature to update the hobby name
 //Make Multiple forms of reccomendation(if some hobyy is done multiple times back to back then the system will suggest to take a break and so on )
 //when the function getHob() is ran, the user is asked for input, find a way so that only happens once per instance of the program/requirement instead of everytime the function runs
+//fix where the data file appears at
+//Add exception handling
+//There is a bug in the FileSave()function, that recursively adds infinite lines, fix it
