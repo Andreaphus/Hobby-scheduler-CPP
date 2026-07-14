@@ -166,7 +166,7 @@ NewHours=ExHours+hours;
 return NewHours;
 }
 
-void ReFile()
+void ReFile()  //this makes a second file, writes the entire data of the original file and the new data that has to be written,then the original file is deleted and replaced with the updated one
 {
 int Hours=AddHours();
 std::string hoby=GetHob();
@@ -183,6 +183,7 @@ if(hoby==hob)
 hou=Hours;	
 ReFileBoi<<hob<<" "<<hou<<std::endl;	
 }
+Fileboi.close();
 ReFileBoi.close();
 }
 
@@ -231,3 +232,5 @@ int main()
 //fix where the data file appears at
 //Add exception handling
 //There is a bug in the FileSave()function, that recursively adds infinite lines, fix it
+//Add a small calculator for hour+minutes to mintue convertion
+
